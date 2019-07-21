@@ -1,0 +1,43 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+  <h1>{{title}}</h1>
+  <p>Welcome to {{title}}</p>
+  
+  <div class='uk-card uk-card-default uk-card-body'>
+  {% for card in table %}
+    <img width=100 src="/images/cards/{{ card }}.png">
+  {% endfor %}
+    <nav>
+      {% if turn != "" %}
+        <a href="/turn">{{ turn|upper }}</a>
+      {% else %}
+        <a href="/reset">Next turn</a>
+      {% endif %}
+    </nav>
+    <div class="uk-align-right uk-inline">
+      <img width=100 src="/images/cards/red_back.png">
+      <span class="uk-badge uk-position-top-right">{{ deck.deck|length }}</span>
+    </div>
+    {% if deck.dealtCards|length > 0 %}
+      <div class="uk-align-right uk-inline">
+        <img width=100 src="/images/cards/red_back.png">
+        <span class="uk-badge uk-position-top-right">{{ deck.dealtCards|length }}</span>
+      </div>
+    {% endif %}
+  </div>
+  
+  <section class="uk-flex uk-margin-large">
+    {% for player, hand in players %}
+      <div class='uk-padding '>
+        <h3 class='uk-align-center'>{{ player }}</h3>
+        {% for card in hand %}
+          <img width=100 src="/images/cards/{{ card }}.png">
+        {% endfor %}
+        <p><a href="/fold/{{ player }}">Fold</a></p>
+      </div>
+    {% endfor %}
+  </section>
+ 
+{% endblock %}
