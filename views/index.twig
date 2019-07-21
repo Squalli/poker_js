@@ -7,7 +7,7 @@
   
   <div class='uk-card uk-card-default uk-card-body'>
   {% for card in table %}
-    <img width=100 src="/images/cards/{{ card }}.png">
+    <img width=100 src="/images/cards/{{ card.name }}.png">
   {% endfor %}
     <nav>
       {% if turn != "" %}
@@ -33,7 +33,10 @@
       <div class='uk-padding '>
         <h3 class='uk-align-center'>{{ player }}</h3>
         {% for card in hand %}
-          <img width=100 src="/images/cards/{{ card }}.png">
+          <figure>
+            <img width=100 src="/images/cards/{{ card.name }}.png">
+            <figcaption>{{ card.value }} - {{ card.color }}</figcaption>
+          </figure>
         {% endfor %}
         <p><a href="/fold/{{ player }}">Fold</a></p>
       </div>

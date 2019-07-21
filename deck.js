@@ -1,5 +1,10 @@
-let values = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"]
-let colors = ["S","H","D","C"]
+class Card{
+  constructor(value, color){
+    this.value = value
+    this.color = color
+    this.name = this.value+this.color
+  }
+}
 
 class Deck {
   constructor() {
@@ -10,16 +15,20 @@ class Deck {
   initDeck(){
     
     let deck = []
-    
+    let values = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"]
+    let colors = ["S","H","D","C"]
+
     colors.forEach(function(color){
        values.forEach(function(value){
-         deck.push(value+color)
+
+         deck.push(new Card(value,color))
        })
     })
     
     this.deck = deck
+    console.log(this.deck)
   }
- 
+
   shuffleCards() {
     var currentIndex = this.deck.length
     var temporaryValue, randomIndex
