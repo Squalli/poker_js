@@ -3,14 +3,15 @@ var router = express.Router()
 
 var Deck = require('../deck')
 var Players = require('../players')
+var Evaluator = require('../evaluate')
 
-var table, deck, players
+var table = [], deck, players
 var turn = "flop"
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
-  if(table == undefined || table.length == 0){
+  if(table.length == 0){
     deck = new Deck()
     players = new Players()
     
@@ -22,8 +23,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/turn', function(req, res, next) {
- 
-  if(turn == "flop"){
+ if(turn == "flop"){
     deck.dealCard()//carte brulée
     table = deck.giveCards(3)
     turn = "turn"
@@ -33,14 +33,16 @@ router.get('/turn', function(req, res, next) {
     table = table.concat(deck.giveCards(1))
     turn = (turn == "turn") ? "river" : ""
   }
-  
-  console.log(table)
+
+  Evaluator.evaluate(table, players.players)
+
   res.render('index', { 
     title: 'Poker Express', 
     players: players.players, 
     turn : turn, 
     table: table, 
-    deck : deck
+    deck : deck,
+    patterns : Evaluator.getPatterns()
   })
 })
 
@@ -56,5 +58,4 @@ router.get('/fold/:player', function(req, res, next){
   
 })
  
-
 module.exports = router

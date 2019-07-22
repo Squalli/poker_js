@@ -17,7 +17,6 @@ class Players {
     for(var i = 0; i < 2; i++){
       Object.keys(Players.players).map(function(key, index) {
         Players.giveCardToPlayer(key, deck.giveCards(1))
-        console.log(Players)
       });
     }
   }

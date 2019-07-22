@@ -24,9 +24,7 @@ class Deck {
          deck.push(new Card(value,color))
        })
     })
-    
     this.deck = deck
-    console.log(this.deck)
   }
 
   shuffleCards() {

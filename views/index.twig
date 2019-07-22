@@ -5,6 +5,18 @@
   <h1>{{title}}</h1>
   <p>Welcome to {{title}}</p>
   
+  <section class="uk-flex">
+  
+    {% for name, playerPatterns in patterns %}
+    <div class="uk-padding">
+      <h4>Joueur {{ name }} </h4>
+      {% for pattern in playerPatterns %}
+        <p>{{ pattern }}</p>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </section>
+
   <div class='uk-card uk-card-default uk-card-body'>
   {% for card in table %}
     <img width=100 src="/images/cards/{{ card.name }}.png">
@@ -17,29 +29,32 @@
       {% endif %}
     </nav>
     <div class="uk-align-right uk-inline">
-      <img width=100 src="/images/cards/red_back.png">
+      <img width=100 src="/images/cards/blue_back.png">
       <span class="uk-badge uk-position-top-right">{{ deck.deck|length }}</span>
     </div>
     {% if deck.dealtCards|length > 0 %}
       <div class="uk-align-right uk-inline">
-        <img width=100 src="/images/cards/red_back.png">
+        <img width=100 src="/images/cards/blue_back.png">
         <span class="uk-badge uk-position-top-right">{{ deck.dealtCards|length }}</span>
       </div>
     {% endif %}
   </div>
   
   <section class="uk-flex uk-margin-large">
+    
     {% for player, hand in players %}
-      <div class='uk-padding '>
+    <div>
         <h3 class='uk-align-center'>{{ player }}</h3>
+        <div class='uk-padding uk-flex'>
         {% for card in hand %}
           <figure>
             <img width=100 src="/images/cards/{{ card.name }}.png">
             <figcaption>{{ card.value }} - {{ card.color }}</figcaption>
           </figure>
         {% endfor %}
+        </div> 
         <p><a href="/fold/{{ player }}">Fold</a></p>
-      </div>
+    </div>
     {% endfor %}
   </section>
  
